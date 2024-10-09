@@ -1,142 +1,134 @@
-# Three.js GLB/GLTF viewer
+# Lanyon
 
-**[GLB/GLTF viewer](https://rabbid76.github.io/threejs-gltf-glb-viewer/deploy/)**
+Lanyon is an unassuming [Jekyll](http://jekyllrb.com) theme that places content first by tucking away navigation in a hidden drawer. It's based on [Poole](http://getpoole.com), the Jekyll butler.
 
-Examples from [KhronosGroup/glTF-Sample-Models](https://github.com/KhronosGroup/glTF-Sample-Models)
+![Lanyon](https://f.cloud.github.com/assets/98681/1825266/be03f014-71b0-11e3-9539-876e61530e24.png)
+![Lanyon with open sidebar](https://f.cloud.github.com/assets/98681/1825267/be04a914-71b0-11e3-966f-8afe9894c729.png)
 
-![BrainStem](docs/screenshot/BrainStem.png)  
-![FlightHelmet](docs/screenshot/FlightHelmet.png)  
-![GearboxAssy](docs/screenshot/GearboxAssy.png)  
 
-## Install and build
+## Contents
 
-```lang-none
-npm run install:webpack
-npm i  
-npm run build
-npm run dev
+- [Usage](#usage)
+- [Options](#options)
+  - [Sidebar menu](#sidebar-menu)
+  - [Themes](#themes)
+  - [Reverse layout](#reverse-layout)
+- [Development](#development)
+- [Author](#author)
+- [License](#license)
+
+
+## Usage
+
+Lanyon is a theme built on top of [Poole](https://github.com/poole/poole), which provides a fully furnished Jekyll setup—just download and start the Jekyll server. See [the Poole usage guidelines](https://github.com/poole/poole#usage) for how to install and use Jekyll.
+
+
+## Options
+
+Lanyon includes some customizable options, typically applied via classes on the `<body>` element.
+
+
+### Sidebar menu
+
+Create a list of nav links in the sidebar by assigning each Jekyll page the correct layout in the page's [front-matter](http://jekyllrb.com/docs/frontmatter/).
+
+```
+---
+layout: page
+title: About
+---
 ```
 
-## Resources
+**Why require a specific layout?** Jekyll will return *all* pages, including the `atom.xml`, and with an alphabetical sort order. To ensure the first link is *Home*, we exclude the `index.html` page from this list by specifying the `page` layout.
 
-### Three.js examples
 
-- [https://threejs.org/examples/](https://threejs.org/examples/)
+### Themes
 
-### Postprocessing and Realism Effects
+Lanyon ships with eight optional themes based on the [base16 color scheme](https://github.com/chriskempson/base16). Apply a theme to change the color scheme (mostly applies to sidebar and links).
 
-- [GitHub - Post Processing](https://github.com/pmndrs/postprocessing#post-processing)
-- [GitHub - three.js Realism Effects](https://github.com/0beqz/realism-effects)
-- [Realism Effects AO example](https://realism-effects.vercel.app/?ao)
+![Lanyon with red theme](https://f.cloud.github.com/assets/98681/1825270/be065110-71b0-11e3-9ed8-9b8de753a4af.png)
+![Lanyon with red theme and open sidebar](https://f.cloud.github.com/assets/98681/1825269/be05ec20-71b0-11e3-91ea-a9138ef07186.png)
 
-### Three.js color management
+There are eight themes available at this time.
 
-- [Color management](https://threejs.org/docs/#manual/en/introduction/Color-management)
-- [Updates to Color Management in three.js r152](https://discourse.threejs.org/t/updates-to-color-management-in-three-js-r152/50791)
+![Available theme classes](https://f.cloud.github.com/assets/98681/1817044/e5b0ec06-6f68-11e3-83d7-acd1942797a1.png)
 
-### Three.js Shadow
+To use a theme, add any one of the available theme classes to the `<body>` element in the `default.html` layout, like so:
 
-- [https://sbcode.net/threejs/directional-light-shadow/](https://sbcode.net/threejs/directional-light-shadow/)
-- [https://sbcode.net/threejs/soft-shadows/](https://sbcode.net/threejs/soft-shadows/)
-- [https://cs.wellesley.edu/~cs307/lectures/20new.html](https://cs.wellesley.edu/~cs307/lectures/20new.html)
-- [https://discourse.threejs.org/t/performant-soft-shadows-three-js/27777](https://discourse.threejs.org/t/performant-soft-shadows-three-js/27777)
-- [https://codesandbox.io/s/soft-shadows-dh2jc?file=/src/index.js:143-154](https://codesandbox.io/s/soft-shadows-dh2jc?file=/src/index.js:143-154)
+```html
+<body class="theme-base-08">
+  ...
+</body>
+```
 
-#### Three.js basic shadow map
+To create your own theme, look to the Themes section of [included CSS file](https://github.com/poole/lanyon/blob/master/public/css/lanyon.css). Copy any existing theme (they're only a few lines of CSS), rename it, and change the provided colors.
 
-- [https://threejs.org/examples/?q=shadow#webgl_shadowmap_pointlight](https://threejs.org/examples/?q=shadow#webgl_shadowmap_pointlight)
-- [https://threejs.org/examples/?q=shadow#webgl_shadowmap_viewer](https://threejs.org/examples/?q=shadow#webgl_shadowmap_viewer)
-- [https://threejs.org/examples/webgl_shadowmesh.html](https://threejs.org/examples/webgl_shadowmesh.html)
 
-#### Three.js PCF (soft) shadow map
+### Reverse layout
 
-- [https://threejs.org/examples/webgl_shadowmap.html](https://threejs.org/examples/webgl_shadowmap.html)
-- [https://threejs.org/examples/webgl_shadowmap_performance.html](https://threejs.org/examples/webgl_shadowmap_performance.html)
+![Lanyon with reverse layout](https://f.cloud.github.com/assets/98681/1825265/be03f2e4-71b0-11e3-89f1-360705524495.png)
+![Lanyon with reverse layout and open sidebar](https://f.cloud.github.com/assets/98681/1825268/be056174-71b0-11e3-88c8-5055bca4307f.png)
 
-#### Three.js Cascaded shadow mapping (CSM)
+Reverse the page orientation with a single class.
 
-- [https://threejs.org/examples/webgl_shadowmap_csm.html](https://threejs.org/examples/webgl_shadowmap_csm.html)
+```html
+<body class="layout-reverse">
+  ...
+</body>
+```
 
-#### Three.js VSM shadow map
 
-- [https://threejs.org/examples/webgl_shadowmap_vsm.html](https://threejs.org/examples/webgl_shadowmap_vsm.html)
+### Sidebar overlay instead of push
 
-#### Three.js PCSS shadow
+Make the sidebar overlap the viewport content with a single class:
 
-- [https://threejs.org/examples/?q=shado#webgl_shadowmap_pcss](https://threejs.org/examples/?q=shado#webgl_shadowmap_pcss)
+```html
+<body class="sidebar-overlay">
+  ...
+</body>
+```
 
-### Three-js postprocessing
+This will keep the content stationary and slide in the sidebar over the side content. It also adds a `box-shadow` based outline to the toggle for contrast against backgrounds, as well as a `box-shadow` on the sidebar for depth.
 
-[How to use post-processing](https://threejs.org/docs/#manual/en/introduction/How-to-use-post-processing)
+It's also available for a reversed layout when you add both classes:
 
-#### Progressive Light map
+```html
+<body class="layout-reverse sidebar-overlay">
+  ...
+</body>
+```
 
-- [https://threejs.org/examples/webgl_shadowmap_progressive.html](https://threejs.org/examples/webgl_shadowmap_progressive.html)
-- [https://codesandbox.io/s/adaptive-lightmaps-wsg13?file=/src/Lightmap.js:251-270](https://codesandbox.io/s/adaptive-lightmaps-wsg13?file=/src/Lightmap.js:251-270)
+### Sidebar open on page load
 
-#### Three.js contact shadow
+Show an open sidebar on page load by modifying the `<input>` to add the `checked` boolean attribute:
 
-- [https://threejs.org/examples/webgl_shadow_contact.html](https://threejs.org/examples/webgl_shadow_contact.html)
-- [https://codesandbox.io/s/shoe-configurator-qxjoj?file=/src/App.js](https://codesandbox.io/s/shoe-configurator-qxjoj?file=/src/App.js)
+```html
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+```
 
-#### Static light map
+Using Liquid you can also conditionally show the sidebar open on a per-page basis. For example, here's how you could have it open on the homepage only:
 
-- [https://threejs.org/examples/webgl_materials_lightmap.html](https://threejs.org/examples/webgl_materials_lightmap.html)
+```html
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" {% if page.title =="Home" %}checked{% endif %}>
+```
 
-#### Ambient Occlusion
+## Development
 
-- [https://gkjohnson.github.io/threejs-sandbox/gtaoPass/](https://gkjohnson.github.io/threejs-sandbox/gtaoPass/)
+Lanyon has two branches, but only one is used for active development.
 
-#### Three.js SSAOPass
+- `master` for development.  **All pull requests should be to submitted against `master`.**
+- `gh-pages` for our hosted site, which includes our analytics tracking code. **Please avoid using this branch.**
 
-- [https://threejs.org/examples/webgl_postprocessing_ssao.html](https://threejs.org/examples/webgl_postprocessing_ssao.html)
-- [https://alteredqualia.com/three/examples/webgl_postprocessing_ssao.html](https://alteredqualia.com/three/examples/webgl_postprocessing_ssao.html)
 
-#### Three.js SAOPass
+## Author
 
-- [https://threejs.org/examples/webgl_postprocessing_sao.html](https://threejs.org/examples/webgl_postprocessing_sao.html)
+**Mark Otto**
+- <https://github.com/mdo>
+- <https://twitter.com/mdo>
 
-#### Environment
 
-- [https://threejs.org/docs/#api/en/extras/PMREMGenerator](https://threejs.org/docs/#api/en/extras/PMREMGenerator)
+## License
 
-#### Global illumination
+Open sourced under the [MIT license](LICENSE.md).
 
-- [Adopting a Progressive Photorealistic Global Illumination in Three.JS](https://github.com/mrdoob/three.js/issues/14051)  
-- [https://threejs.org/examples/webgl_simple_gi.html](https://threejs.org/examples/webgl_simple_gi.html)
-
-#### Screen space reflection
-
-- [https://threejs.org/examples/webgl_postprocessing_ssr.html](https://threejs.org/examples/webgl_postprocessing_ssr.html)
-- [https://github.com/0beqz/screen-space-reflections](https://github.com/0beqz/screen-space-reflections)
-- [npm - three.js Screen Space Reflections](https://www.npmjs.com/package/screen-space-reflections)  
-- [https://screen-space-reflections.vercel.app/](https://screen-space-reflections.vercel.app/)
-- [Three.js Screen Space Reflections](https://reactjsexample.com/three-js-screen-space-reflections/)  
-
-#### Outline
-
-- [https://threejs.org/examples/webgl_postprocessing_outline.html](https://threejs.org/examples/webgl_postprocessing_outline.html)
-
-#### Bloom
-
-- [https://threejs.org/examples/webgl_postprocessing_unreal_bloom.html](https://threejs.org/examples/webgl_postprocessing_unreal_bloom.html)
-- [https://threejs.org/examples/webgl_postprocessing_unreal_bloom_selective.html](https://threejs.org/examples/webgl_postprocessing_unreal_bloom_selective.html)
-- [https://github.com/mattatz/THREE.BloomBlendPass](https://github.com/mattatz/THREE.BloomBlendPass)
-
-### Specifications
-
-- [WebGL Specification](https://registry.khronos.org/webgl/specs/latest/1.0/)
-- [OpenGL ES 2.0 Common Profile Specification](https://registry.khronos.org/OpenGL/specs/es/2.0/es_full_spec_2.0.pdf)
-- [OpenGL ES Shading Language 1.00 Specification](https://registry.khronos.org/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf)
-- [WebGL 2.0 Specification](https://registry.khronos.org/webgl/specs/latest/2.0/)
-- [OpenGL ES 3.0.6 Specification](https://registry.khronos.org/OpenGL/specs/es/3.0/es_spec_3.0.pdf)
-- [OpenGL ES Shading Language 3.00 Specification](https://registry.khronos.org/OpenGL/specs/es/3.0/GLSL_ES_Specification_3.00.pdf)
-
-### Shader
-
-- [Line texture](https://www.shadertoy.com/view/NsjczG)
-- [GRAPROG](https://www.shadertoy.com/view/MdBcz1)
-- [Vorocracks marble](https://www.shadertoy.com/view/Xs3fR4)
-- [Kraft](https://www.shadertoy.com/view/4lKyDm)
-- [Grid Paper](https://www.shadertoy.com/view/4tj3DG)
-- [Cube Circle Sketch](https://www.shadertoy.com/view/3dtBWX)
+<3
