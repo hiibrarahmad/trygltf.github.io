@@ -1,84 +1,58 @@
 {
-  "name": "gltf-sample-viewer-example",
+  "name": "gltf-viewer",
   "version": "1.0.0",
-  "description": "The official glTF sample viewer example.",
-  "main": "src/main.js",
-  "module": "src/main.js",
-  "type": "module",
+  "description": "GLTF viewer",
   "scripts": {
-    "preinstall": "cd ./glTF-Sample-Renderer && npm install && npm run build",
-    "build": "cd ./glTF-Sample-Renderer && npm run build && cd .. && rollup -c",
-    "build:ui": "rollup -c",
-    "dev": "concurrently \"npm-watch\" \"cd ./dist && http-server -p 8000 -c-1\"",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint src/**/*.js main.js rollup.config.js glTF-Sample-Renderer/source/**/*.js",
-    "lint:fix": "eslint --fix src/**/*.js main.js rollup.config.js glTF-Sample-Renderer/source/**/*.js",
-    "postversion": "git push && git push --tags"
+    "all": "npm run update:modules && npm run format && npm run build && npm run copy:deploy && npm run dev",
+    "format": "prettier . --write --ignore-path .prettierignore && npx eslint ./src/** --fix",
+    "install:ncu": "npm install -g npm-check-updates",
+    "install:webpack": "npm install --save-dev webpack",
+    "update:modules": "ncu -u && npm update && npm i",
+    "build:client": "webpack --config ./src/client/webpack.prod.js",
+    "build:server": "tsc -p ./src/server",
+    "build": "npm run copy:assets && npm run copy:draco:src && npm run build:client && npm run build:server",
+    "dev": "webpack serve --config ./src/client/webpack.dev.js",
+    "start": "node ./dist/server/three_server.js",
+    "copy:assets": "copyfiles --flat ./deploy/*.glb ./dist/client",
+    "copy:draco:src": "copyfiles --flat ./node_modules/three/examples/jsm/libs/draco/* ./src/client/draco",
+    "copy:draco:deploy": "copyfiles --flat ./src/client/draco/* ./deploy/draco",
+    "copy:deploy": "npm run copy:draco:deploy && copyfiles --flat ./dist/client/*.js ./deploy && copyfiles --flat ./dist/client/*.png ./deploy && copyfiles --flat ./dist/client/*.envmap ./deploy",
+    "postinstall": "patch-package",
+    "patch:create": "npx patch-package realism-effects"
   },
-  "watch": {
-    "build": {
-      "patterns": [
-        "glTF-Sample-Renderer/source"
-      ],
-      "extensions": "js,scss,html,glsl,vert,frag",
-      "delay": 1000
-    },
-    "build:ui": {
-      "patterns": [
-        "src",
-        "main.js",
-        "index.html"
-      ],
-      "extensions": "js,scss,html",
-      "delay": 1000,
-      "runOnChangeOnly": true
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/KhronosGroup/glTF-Sample-Viewer.git"
-  },
-  "keywords": [
-    "gltf",
-    "webgl",
-    "pbr"
-  ],
-  "author": "Khronos Group Inc.",
-  "license": "Apache-2.0",
-  "dependencies": {
-    "@khronosgroup/gltf-viewer": "./glTF-Sample-Renderer",
-    "@ntohq/buefy-next": "^0.1.3",
-    "bulma": "^0.9.4",
-    "fast-png": "^6.2.0",
-    "gl-matrix": "^3.2.1",
-    "gltf-validator": "^2.0.0-dev.3.9",
-    "jpeg-js": "^0.4.3",
-    "normalize-wheel": "^1.0.1",
-    "path": "^0.12.7",
-    "rxjs": "^6.6.7",
-    "simple-dropzone": "^0.8.0",
-    "vue": "^3.4.29"
-  },
+  "author": "Rabbid76",
+  "license": "ISC",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^26.0.1",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-replace": "^5.0.7",
-    "@rollup/plugin-wasm": "^6.2.2",
-    "concurrently": "^8.2.2",
-    "eslint": "^9.5.0",
-    "http-server": "^14.1.1",
-    "npm-watch": "^0.13.0",
-    "rollup": "^4.23.0",
-    "rollup-plugin-copy": "^3.5.0",
-    "rollup-plugin-delete": "^2.0.0",
-    "rollup-plugin-glslify": "^1.3.1",
-    "rollup-plugin-license": "^3.5.1",
-    "rollup-plugin-scss": "^3.0.0",
-    "rollup-plugin-sourcemaps": "^0.6.3",
-    "sass": "^1.77.5"
+    "@types/dat.gui": "^0.7.13",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.4",
+    "@types/three": "^0.169.0",
+    "@typescript-eslint/eslint-plugin": "8.8.0",
+    "@typescript-eslint/parser": "8.8.0",
+    "axios": "^1.7.7",
+    "copy-webpack-plugin": "^12.0.2",
+    "copyfiles": "^2.4.1",
+    "dat.gui": "^0.7.9",
+    "eslint": "9.12.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-jest": "28.8.3",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-prettier": "5.2.1",
+    "install-peers": "^1.0.4",
+    "npm-check-updates": "^17.1.3",
+    "patch-package": "^8.0.0",
+    "prettier": "3.3.3",
+    "raw-loader": "^4.0.2",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.6.2",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0",
+    "webpack-merge": "^6.0.1"
   },
-  "bugs": {
-    "url": "https://github.com/KhronosGroup/glTF-Sample-Viewer/issues"
-  },
-  "homepage": "https://github.com/KhronosGroup/glTF-Sample-Viewer/#readme"
+  "dependencies": {
+    "express": "^4.21.0",
+    "lodash": "^4.17.21",
+    "three": "0.169.0"
+  }
 }

@@ -1,110 +1,142 @@
-glTF Sample Viewer Web App
-==============================
+# Three.js GLB/GLTF viewer
 
-[![](../assets/images/BoomBox.jpg)](https://github.khronos.org/glTF-Sample-Viewer-Release/)
+**[GLB/GLTF viewer](https://rabbid76.github.io/threejs-gltf-glb-viewer/deploy/)**
 
-This is the official [Khronos glTF 2.0](https://www.khronos.org/gltf/) Sample Viewer using [WebGL](https://www.khronos.org/webgl/): [glTF 2.0 Sample Viewer](https://github.khronos.org/glTF-Sample-Viewer-Release/)
+Examples from [KhronosGroup/glTF-Sample-Models](https://github.com/KhronosGroup/glTF-Sample-Models)
 
+![BrainStem](docs/screenshot/BrainStem.png)  
+![FlightHelmet](docs/screenshot/FlightHelmet.png)  
+![GearboxAssy](docs/screenshot/GearboxAssy.png)  
 
-Viewer
-======
+## Install and build
 
-Link to the live [glTF 2.0 Sample Viewer](https://github.khronos.org/glTF-Sample-Viewer-Release/).
-
-Usage
------
-
-### Controls
-
-`click + drag` : Rotate model
-
-`scroll` : Zoom camera
-
-`GUI` : Use to change models and settings
-
-### Change glTF model
-
-* Choose one of the glTF models in the selection list
-* Drag and drop glTF files into viewer
-
-### Change the environment map
-* Drag and drop a .hdr panorama file
-
-Setup
------
-
-For local usage and debugging, please follow these instructions:
-
-1. Checkout the [`main`](../../tree/main) branch
-
-2. Pull the submodule for the required [glTF-Sample-Renderer](https://github.com/KhronosGroup/glTF-Sample-Renderer)  `git submodule update  --init --recursive`
-
-3. Build the web app
-	- run `npm install`
-	- start a demo in the browser with `npm run dev`, and open http://localhost:8000.
-
-When making changes, the project is automatically rebuilt and the `./dist` directory is populated with the web app. This directory contains all files necessary for deployment to a webserver.
-
-Debugging
----------
-
-* Requirements
-  * [Visual Studio Code](https://code.visualstudio.com/) or [vscodium](https://github.com/VSCodium/vscodium)
-  * [Chrome](https://www.google.com/chrome/) or [Firefox](https://www.mozilla.org/en-US/firefox/new/)
-* Install the [Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome) or [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=hbenl.vscode-firefox-debug) extension for Visual Studio Code
-* Open the project directory in Visual Studio Code and select `Debug->Add Configuration->Chrome` or `Debug->Add Configuration->Firefox` so the `.vscode/launch.json` file is created.
-* For chrome: Append `/dist` to `${workspaceFolder}` in the `launch.json` file
-* `Debug->Start Debugging` should now launch a Chrome or Firefox window with the sample viewer and VS Code breakpoints should be hit.
-
-### Known Issues
-npm install / npm run dev give the following warnings:
-
-The following warning comes from a thirdparty and does not affect sample viewer since the mentioned line 179 is never executed.
-
-```
-(!) "this" has been rewritten to "undefined"
-https://rollupjs.org/troubleshooting/#error-this-is-undefined
-node_modules/iobuffer/lib-esm/text-encoding-polyfill.js
-177:     : typeof self !== 'undefined'
-178:         ? self
-179:         : this);
-               ^
-180: //# sourceMappingURL=text-encoding-polyfill.js.map
+```lang-none
+npm run install:webpack
+npm i  
+npm run build
+npm run dev
 ```
 
-The following warning is caused by an old bulma version, which buefy-next currently depends on.
-This should be fixed in an upcoming release: https://github.com/ntohq/buefy-next/issues/208
+## Resources
 
-```
-[0] [build] DEPRECATION WARNING: Sass's behavior for declarations that appear after nested
-[0] rules will be changing to match the behavior specified by CSS in an upcoming
-[0] version. To keep the existing behavior, move the declaration above the nested
-[0] rule. To opt into the new behavior, wrap the declaration in `& {}`.
-[0]
-[0] More info: https://sass-lang.com/d/mixed-decls
-[0]
-[0]    ╷
-[0] 51 │ ┌   &:not(.is-rounded)
-[0] 52 │ │     border-radius: $radius-small
-[0]    │ └─── nested rule
-[0] 53 │     font-size: $size-small
-[0]    │     ^^^^^^^^^^^^^^^^^^^^^^ declaration
-[0]    ╵
-[0]     node_modules\bulma\sass\elements\button.sass 53:3   button-small()
-[0]     node_modules\bulma\sass\elements\button.sass 252:5  @import
-[0]     node_modules\bulma\sass\elements\_all.sass 5:9      @import
-[0]     node_modules\bulma\bulma.sass 5:9                   @import
-[0]     stdin 60:9                                          root stylesheet
-```
+### Three.js examples
 
-The following warnings stem from the rollup copy plugin, which is only used for development to copy files to the dist folder.
+- [https://threejs.org/examples/](https://threejs.org/examples/)
 
-```
-npm WARN deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
-npm WARN deprecated source-map-resolve@0.6.0: See https://github.com/lydell/source-map-resolve#deprecated
-npm WARN deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
-npm WARN deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
-npm WARN deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
-npm WARN deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
-npm WARN deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
-```
+### Postprocessing and Realism Effects
+
+- [GitHub - Post Processing](https://github.com/pmndrs/postprocessing#post-processing)
+- [GitHub - three.js Realism Effects](https://github.com/0beqz/realism-effects)
+- [Realism Effects AO example](https://realism-effects.vercel.app/?ao)
+
+### Three.js color management
+
+- [Color management](https://threejs.org/docs/#manual/en/introduction/Color-management)
+- [Updates to Color Management in three.js r152](https://discourse.threejs.org/t/updates-to-color-management-in-three-js-r152/50791)
+
+### Three.js Shadow
+
+- [https://sbcode.net/threejs/directional-light-shadow/](https://sbcode.net/threejs/directional-light-shadow/)
+- [https://sbcode.net/threejs/soft-shadows/](https://sbcode.net/threejs/soft-shadows/)
+- [https://cs.wellesley.edu/~cs307/lectures/20new.html](https://cs.wellesley.edu/~cs307/lectures/20new.html)
+- [https://discourse.threejs.org/t/performant-soft-shadows-three-js/27777](https://discourse.threejs.org/t/performant-soft-shadows-three-js/27777)
+- [https://codesandbox.io/s/soft-shadows-dh2jc?file=/src/index.js:143-154](https://codesandbox.io/s/soft-shadows-dh2jc?file=/src/index.js:143-154)
+
+#### Three.js basic shadow map
+
+- [https://threejs.org/examples/?q=shadow#webgl_shadowmap_pointlight](https://threejs.org/examples/?q=shadow#webgl_shadowmap_pointlight)
+- [https://threejs.org/examples/?q=shadow#webgl_shadowmap_viewer](https://threejs.org/examples/?q=shadow#webgl_shadowmap_viewer)
+- [https://threejs.org/examples/webgl_shadowmesh.html](https://threejs.org/examples/webgl_shadowmesh.html)
+
+#### Three.js PCF (soft) shadow map
+
+- [https://threejs.org/examples/webgl_shadowmap.html](https://threejs.org/examples/webgl_shadowmap.html)
+- [https://threejs.org/examples/webgl_shadowmap_performance.html](https://threejs.org/examples/webgl_shadowmap_performance.html)
+
+#### Three.js Cascaded shadow mapping (CSM)
+
+- [https://threejs.org/examples/webgl_shadowmap_csm.html](https://threejs.org/examples/webgl_shadowmap_csm.html)
+
+#### Three.js VSM shadow map
+
+- [https://threejs.org/examples/webgl_shadowmap_vsm.html](https://threejs.org/examples/webgl_shadowmap_vsm.html)
+
+#### Three.js PCSS shadow
+
+- [https://threejs.org/examples/?q=shado#webgl_shadowmap_pcss](https://threejs.org/examples/?q=shado#webgl_shadowmap_pcss)
+
+### Three-js postprocessing
+
+[How to use post-processing](https://threejs.org/docs/#manual/en/introduction/How-to-use-post-processing)
+
+#### Progressive Light map
+
+- [https://threejs.org/examples/webgl_shadowmap_progressive.html](https://threejs.org/examples/webgl_shadowmap_progressive.html)
+- [https://codesandbox.io/s/adaptive-lightmaps-wsg13?file=/src/Lightmap.js:251-270](https://codesandbox.io/s/adaptive-lightmaps-wsg13?file=/src/Lightmap.js:251-270)
+
+#### Three.js contact shadow
+
+- [https://threejs.org/examples/webgl_shadow_contact.html](https://threejs.org/examples/webgl_shadow_contact.html)
+- [https://codesandbox.io/s/shoe-configurator-qxjoj?file=/src/App.js](https://codesandbox.io/s/shoe-configurator-qxjoj?file=/src/App.js)
+
+#### Static light map
+
+- [https://threejs.org/examples/webgl_materials_lightmap.html](https://threejs.org/examples/webgl_materials_lightmap.html)
+
+#### Ambient Occlusion
+
+- [https://gkjohnson.github.io/threejs-sandbox/gtaoPass/](https://gkjohnson.github.io/threejs-sandbox/gtaoPass/)
+
+#### Three.js SSAOPass
+
+- [https://threejs.org/examples/webgl_postprocessing_ssao.html](https://threejs.org/examples/webgl_postprocessing_ssao.html)
+- [https://alteredqualia.com/three/examples/webgl_postprocessing_ssao.html](https://alteredqualia.com/three/examples/webgl_postprocessing_ssao.html)
+
+#### Three.js SAOPass
+
+- [https://threejs.org/examples/webgl_postprocessing_sao.html](https://threejs.org/examples/webgl_postprocessing_sao.html)
+
+#### Environment
+
+- [https://threejs.org/docs/#api/en/extras/PMREMGenerator](https://threejs.org/docs/#api/en/extras/PMREMGenerator)
+
+#### Global illumination
+
+- [Adopting a Progressive Photorealistic Global Illumination in Three.JS](https://github.com/mrdoob/three.js/issues/14051)  
+- [https://threejs.org/examples/webgl_simple_gi.html](https://threejs.org/examples/webgl_simple_gi.html)
+
+#### Screen space reflection
+
+- [https://threejs.org/examples/webgl_postprocessing_ssr.html](https://threejs.org/examples/webgl_postprocessing_ssr.html)
+- [https://github.com/0beqz/screen-space-reflections](https://github.com/0beqz/screen-space-reflections)
+- [npm - three.js Screen Space Reflections](https://www.npmjs.com/package/screen-space-reflections)  
+- [https://screen-space-reflections.vercel.app/](https://screen-space-reflections.vercel.app/)
+- [Three.js Screen Space Reflections](https://reactjsexample.com/three-js-screen-space-reflections/)  
+
+#### Outline
+
+- [https://threejs.org/examples/webgl_postprocessing_outline.html](https://threejs.org/examples/webgl_postprocessing_outline.html)
+
+#### Bloom
+
+- [https://threejs.org/examples/webgl_postprocessing_unreal_bloom.html](https://threejs.org/examples/webgl_postprocessing_unreal_bloom.html)
+- [https://threejs.org/examples/webgl_postprocessing_unreal_bloom_selective.html](https://threejs.org/examples/webgl_postprocessing_unreal_bloom_selective.html)
+- [https://github.com/mattatz/THREE.BloomBlendPass](https://github.com/mattatz/THREE.BloomBlendPass)
+
+### Specifications
+
+- [WebGL Specification](https://registry.khronos.org/webgl/specs/latest/1.0/)
+- [OpenGL ES 2.0 Common Profile Specification](https://registry.khronos.org/OpenGL/specs/es/2.0/es_full_spec_2.0.pdf)
+- [OpenGL ES Shading Language 1.00 Specification](https://registry.khronos.org/OpenGL/specs/es/2.0/GLSL_ES_Specification_1.00.pdf)
+- [WebGL 2.0 Specification](https://registry.khronos.org/webgl/specs/latest/2.0/)
+- [OpenGL ES 3.0.6 Specification](https://registry.khronos.org/OpenGL/specs/es/3.0/es_spec_3.0.pdf)
+- [OpenGL ES Shading Language 3.00 Specification](https://registry.khronos.org/OpenGL/specs/es/3.0/GLSL_ES_Specification_3.00.pdf)
+
+### Shader
+
+- [Line texture](https://www.shadertoy.com/view/NsjczG)
+- [GRAPROG](https://www.shadertoy.com/view/MdBcz1)
+- [Vorocracks marble](https://www.shadertoy.com/view/Xs3fR4)
+- [Kraft](https://www.shadertoy.com/view/4lKyDm)
+- [Grid Paper](https://www.shadertoy.com/view/4tj3DG)
+- [Cube Circle Sketch](https://www.shadertoy.com/view/3dtBWX)
