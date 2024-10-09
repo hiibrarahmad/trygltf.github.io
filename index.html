@@ -20,6 +20,7 @@
 </main>
 
 <script>
+    // The URL to the glTF model
     const modelUrl = 'assets/icons.gltf';
 
     function init() {
@@ -29,7 +30,7 @@
 
         // Set up the camera
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 5;
+        camera.position.set(0, 1, 5); // Adjust camera position for a better view of the model
 
         // Set up the renderer
         const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -48,13 +49,14 @@
         const loader = new THREE.GLTFLoader();
         loader.load(modelUrl, (gltf) => {
             const model = gltf.scene;
-            model.scale.set(0.5, 0.5, 0.5); // Scale the model if needed
+            model.scale.set(1.0, 1.0, 1.0); // Scale the model appropriately
+            model.position.set(0, 0, 0); // Ensure the model is centered
             scene.add(model);
 
-            // Render the scene
+            // Render the scene with animation
             function animate() {
                 requestAnimationFrame(animate);
-                model.rotation.y += 0.01; // Rotate the model for better visibility
+                model.rotation.y += 0.01; // Rotate the model for better visualization
                 renderer.render(scene, camera);
             }
             animate();
