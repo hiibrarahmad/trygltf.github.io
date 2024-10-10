@@ -1,0 +1,33 @@
+{
+  "name": "polywolf",
+  "version": "1.0.4",
+  "description": "webgl embedded renderer",
+  "main": "index.js",
+  "scripts": {
+    "start": "run-p dev_build dev_server open_page",
+    "build": "webpack --mode production",
+    "dev_build": "webpack --mode development --watch",
+    "dev_server": "php -S localhost:8000",
+    "open_page": "echo hello"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheExpandingPolytope/gltf-pbr-loader.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheExpandingPolytope/gltf-pbr-loader/issues"
+  },
+  "homepage": "https://github.com/TheExpandingPolytope/gltf-pbr-loader#readme",
+  "devDependencies": {
+    "file-loader": "^6.0.0",
+    "image-webpack-loader": "^6.0.0",
+    "npm-run-all": "^4.1.5",
+    "url-loader": "^4.0.0",
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.5"
+  },
+  "dependencies": {},
+  "keywords": []
+}
