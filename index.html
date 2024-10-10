@@ -1,251 +1,203 @@
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Polywolf</title>
-        <style>
-            
-            #container{
-            }
-            header * {
-                margin: 20px 0;
-            }
-            .outer-div
-            {
-                padding: 30px;
-            }
-            .inner-div
-            {
-                margin: 0 auto;
-                width: 800px; 
-            }
-            #examples { 
-                display: flex;
-                flex-wrap:wrap;
-            }
-            #examples div{
-                margin:10px;
-            }
+<head>
+    <meta charset="UTF-8">
+    <!-- Import the component -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js"></script>
+    <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+    <style>
+        model-viewer {
+            height: 85vh;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+<model-viewer src="assets/models/Chair.glb" poster="assets/models/Chair.png" shadow-intensity="1" ar ar-modes="webxr scene-viewer quick-look" camera-controls alt="A 3D model carousel">
+  
+  <button slot="ar-button" id="ar-button">
+    View in your space
+  </button>
 
-            code[class*="language-"],
-pre[class*="language-"] {
-	font-family: Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace;
-	font-size: 14px;
-	line-height: 1.375;
-	direction: ltr;
-	text-align: left;
-	white-space: pre;
-	word-spacing: normal;
-	word-break: normal;
-	-moz-tab-size: 4;
-	-o-tab-size: 4;
-	tab-size: 4;
-	-webkit-hyphens: none;
-	-moz-hyphens: none;
-	-ms-hyphens: none;
-	hyphens: none;
-	background: #f5f7ff;
-	color: #5e6687;
-}
+  <div id="ar-prompt">
+    <img src="assets/hand.png">
+  </div>
 
-pre > code[class*="language-"] {
-	font-size: 1em;
-}
+  <button id="ar-failure">
+    AR is not tracking!
+  </button>
 
-pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
-code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
-	text-shadow: none;
-	background: #dfe2f1;
-}
+  <a href="ModelWithDetails.html">Page 2</a>
+  <a href="ModelWithSize.html">Page 3</a>
 
-pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
-code[class*="language-"]::selection, code[class*="language-"] ::selection {
-	text-shadow: none;
-	background: #dfe2f1;
-}
 
-/* Code blocks */
-pre[class*="language-"] {
-	padding: 1em;
-	margin: .5em 0;
-	overflow: auto;
-}
+  <div class="slider">
+    <div class="slides">
+      <button class="slide selected" onclick="switchSrc(this, 'Chair')" style="background-image: url('assets/models/Chair.png');">
 
-/* Inline code */
-:not(pre) > code[class*="language-"] {
-	padding: .1em;
-	border-radius: .3em;
-}
+      </button><button class="slide" onclick="switchSrc(this, 'Mixer')" style="background-image: url('assets/models/Mixer.png');">
 
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-	color: #898ea4;
-}
+      </button><button class="slide" onclick="switchSrc(this, 'DamagedHelmet')" style="background-image: url('assets/models/DamagedHelmet.png');">
 
-.token.punctuation {
-	color: #5e6687;
-}
+      </button><button class="slide" onclick="switchSrc(this, 'GeoPlanter')" style="background-image: url('assets/models/GeoPlanter.png');">
 
-.token.namespace {
-	opacity: .7;
-}
+      </button><button class="slide" onclick="switchSrc(this, 'Tester_Module_BI_Rev14_6L')" style="background-image: url('assets/models/Tester_Module_BI_Rev14_6L.png');">
+      
+      </button><button class="slide" onclick="switchSrc(this, 'ToyTrain')" style="background-image: url('assets/models/ToyTrain.png');">
+      
+      </button><button class="slide" onclick="switchSrc(this, 'Canoe')" style="background-image: url('assets/models/Canoe.png');">    
+    </button></div>
+  </div>
+</model-viewer>
 
-.token.operator,
-.token.boolean,
-.token.number {
-	color: #c76b29;
-}
+<script type="module">
+  const modelViewer = document.querySelector("model-viewer");
 
-.token.property {
-	color: #c08b30;
-}
+  window.switchSrc = (element, name) => {
+    const base = "assets/models/" + name;
+    modelViewer.src = base + '.glb';
+    modelViewer.poster = base + '.png';
+    const slides = document.querySelectorAll(".slide");
+    slides.forEach((element) => {element.classList.remove("selected");});
+    element.classList.add("selected");
+  };
 
-.token.tag {
-	color: #3d8fd1;
-}
+  document.querySelector(".slider").addEventListener('beforexrselect', (ev) => {
+    // Keep slider interactions from affecting the XR scene.
+    ev.preventDefault();
+  });
+</script>
 
-.token.string {
-	color: #22a2c9;
-}
+<style>
+  /* This keeps child nodes hidden while the element loads */
+  :not(:defined) > * {
+    display: none;
+  }
 
-.token.selector {
-	color: #6679cc;
-}
+  model-viewer {
+    background-color: #eee;
+    overflow-x: hidden;
+    --poster-color: #eee;
+  }
 
-.token.attr-name {
-	color: #c76b29;
-}
+  #ar-button {
+    background-image: url(assets/ic_view_in_ar_new_googblue_48dp.png);
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+    background-position: 12px 50%;
+    background-color: #fff;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    bottom: 132px;
+    padding: 0px 16px 0px 60px;
+    font-family: Roboto Regular, Helvetica Neue, sans-serif;
+    font-size: 40px;
+    color:#4285f4;
+    height: 60px;
+    line-height: 36px;
+    border-radius: 10px;
+    border: 1px solid #DADCE0;
+  }
+  
 
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-	color: #22a2c9;
-}
+  #ar-button:active {
+    background-color: #E8EAED;
+  }
 
-.token.attr-value,
-.token.keyword,
-.token.control,
-.token.directive,
-.token.unit {
-	color: #ac9739;
-}
+  #ar-button:focus {
+    outline: none;
+  }
 
-.token.statement,
-.token.regex,
-.token.atrule {
-	color: #22a2c9;
-}
+  #ar-button:focus-visible {
+    outline: 1px solid #4285f4;
+  }
 
-.token.placeholder,
-.token.variable {
-	color: #3d8fd1;
-}
+  @keyframes circle {
+    from { transform: translateX(-50%) rotate(0deg) translateX(50px) rotate(0deg); }
+    to   { transform: translateX(-50%) rotate(360deg) translateX(50px) rotate(-360deg); }
+  }
 
-.token.deleted {
-	text-decoration: line-through;
-}
+  @keyframes elongate {
+    from { transform: translateX(100px); }
+    to   { transform: translateX(-100px); }
+  }
 
-.token.inserted {
-	border-bottom: 1px dotted #202746;
-	text-decoration: none;
-}
+  model-viewer > #ar-prompt {
+    position: absolute;
+    left: 50%;
+    bottom: 175px;
+    animation: elongate 2s infinite ease-in-out alternate;
+    display: none;
+  }
 
-.token.italic {
-	font-style: italic;
-}
+  model-viewer[ar-status="session-started"] > #ar-prompt {
+    display: block;
+  }
 
-.token.important,
-.token.bold {
-	font-weight: bold;
-}
+  model-viewer > #ar-prompt > img {
+    animation: circle 4s linear infinite;
+  }
 
-.token.important {
-	color: #c94922;
-}
+  model-viewer > #ar-failure {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 175px;
+    display: none;
+  }
 
-.token.entity {
-	cursor: help;
-}
+  model-viewer[ar-tracking="not-tracking"] > #ar-failure {
+    display: block;
+  }
 
-pre > code.highlight {
-	outline: 0.4em solid #c94922;
-	outline-offset: .4em;
-}
+  .slider {
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    position: absolute;
+    bottom: 16px;
+  }
 
-/* overrides color-values for the Line Numbers plugin
- * http://prismjs.com/plugins/line-numbers/
- */
-.line-numbers .line-numbers-rows {
-	border-right-color: #dfe2f1;
-}
-
-.line-numbers-rows > span:before {
-	color: #979db4;
-}
-
-/* overrides color-values for the Line Highlight plugin
- * http://prismjs.com/plugins/line-highlight/
- */
-.line-highlight {
-	background: rgba(107, 115, 148, 0.2);
-	background: -webkit-linear-gradient(left, rgba(107, 115, 148, 0.2) 70%, rgba(107, 115, 148, 0));
-	background: linear-gradient(to right, rgba(107, 115, 148, 0.2) 70%, rgba(107, 115, 148, 0));
-}
-body {
-    font-family: 'Muli', sans-serif;
-}
-body {
+  .slides {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-        </style>
-        <script type='module'src="polywolf.min.js" defer></script>
-        <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
 
-    </head>
-    <body class = "outer-div">
-        <script src="./examples/prism.js"></script>
-        <div id="code">
-        <header>
-                <h1>polywolf</h1>
-                <p>Web model viewer that runs entirely on javascript and WebGL 2.0. It is easy to use. Get started by</p>
-            </header>
-            <div>
-                <h3>Install</h3>
-                <pre><code class="language-css">npm install polywolf</code></pre>
-                <p>then include within html</p>
-                <pre><code class="language-markup">&lt;script type='module'src="node_modules/polywolf/polywolf.min.js" defer>&lt;/script></code></pre>
+  .slide {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #fff;
+    margin-right: 10px;
+    border-radius: 10px;
+    border: none;
+    display: flex;
+  }
 
-            </div>
+  .slide.selected {
+    border: 2px solid #4285f4;
+  }
+
+  .slide:focus {
+    outline: none;
+  }
+
+  .slide:focus-visible {
+    outline: 1px solid #4285f4;
+  }
+
+</style>
 
 
-            <div>
-                <h3>Usage</h3>
-                <pre><code class="language-markup">&lt;div is="poly-wolf" url="PATH_TO_MODEL" width="CANVAS_WIDTH" height="CANVAS_HEIGHT"/></code></pre>
-                or
-                <pre><code class="language-javascript">var element = document.createElement('poly-wolf');
-element.setAttribute('url', 'PATH_TO_MODEL');
-element.setAttribute('height', '500');
-element.setAttribute('width', '500');
-document.body.appendChild(element);
-                </code></pre>
-            </div>
-        </div>
-
-        <div id="examples" class="inner-div">
-            
-            <h3>Examples</h3>
-            <div id='examples'>
-                <div>
-                    <p>Gun</p>
-                    <div is='poly-wolf' url="./examples/gun/scene.gltf" width='700' height='350'></div>
-                </div>
-            </div>
-        </div>
-    </body>
+</body>
 </html>
+
